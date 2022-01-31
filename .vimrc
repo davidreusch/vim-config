@@ -12,7 +12,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/syntastic'
-Plugin 'preservim/nerdtree'
+" Plugin 'preservim/nerdtree'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'majutsushi/tagbar'              " Class/module browser
 Plugin 'tmhedberg/SimpylFold'
@@ -38,6 +38,12 @@ filetype plugin indent on    " required
 set secure
 set shell=/usr/bin/zsh
 set noswapfile
+set <up>=OA
+set <down>=OB
+set <right>=OC
+set <left>=OD
+set notimeout
+set nottimeout
 
 """""Tagbar Plugin""""" {{{
 " toggle folds
@@ -46,7 +52,6 @@ noremap <2-LeftMouse> za
 nnoremap <F8> :TagbarToggle<CR>
 inoremap <F8> :TagbarToggle<CR>
 " }}}
-
 
 """"NerdTree""" {{{
 nnoremap <F4> :NERDTreeToggle<CR>
@@ -124,6 +129,7 @@ set shiftwidth=4
 set expandtab 
 set autoindent 
 set fileformat=unix
+set backspace=indent,eol,start
 " }}}
 
 " other options {{{
@@ -148,18 +154,27 @@ nnoremap <leader>w :nohlsearch<Bar>echo<cr>:wall<cr>
 nnoremap <leader>q :q<cr>
 nnoremap <leader>ex osys.exit(0)<esc>
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>sv :w<Bar>source $MYVIMRC<CR>
 nnoremap <leader>ez :vsplit ~/.zshrc<cr>
-nnoremap <leader>sz :!source ~/.zshrc<cr>
+nnoremap <leader>sv :w<Bar>source $MYVIMRC<CR>
+nnoremap <leader>m :set mouse=a<cr>
 nnoremap <leader>nm :set mouse=""<cr>
 nnoremap <leader>no :set nu<cr> :set relativenumber<cr>
 nnoremap <leader>nn :set norelativenumber<cr> :set nonu<cr>
-nnoremap <leader>m :set mouse=a<cr>
-nnoremap <leader>t :tabn
+nnoremap <leader>ps oprint("="*30)<esc>
+nnoremap <leader>pp oprint('')<esc>hi
+nnoremap <leader>sz :!source ~/.zshrc<cr>
+nnoremap <leader>sz :!source ~/.zshrc<cr>
+nnoremap <Leader>3 :%s/\<<C-r><C-w>\>/
+nnoremap <leader>b obreakpoint()<esc>
+nnoremap <leader>db :g/breakpoint/d<esc>
+nnoremap <leader>d9 %x``x
+nnoremap <buffer> <leader>uc ^xx
 nnoremap ZZ ZZ:source $MYVIMRC<cr>
 nnoremap <leader>2 bi"<esc>lea"<esc>l
 nnoremap <leader>" bi["<esc>lea"]<esc>l
 nnoremap <leader>ta :tabnew<space>
+nnoremap <leader>ti Ostart = time.time()<esc>joprint("time for <<< ", time.time() - start)<esc>BBBBBcw
+
 nnoremap  <F2> :tabnew<space>
 nnoremap cl c$
 nnoremap dl d$
@@ -187,10 +202,10 @@ nnoremap <leader>f :.,+
 inoremap <c-u> <esc>viwUea
 inoremap jk <esc>
 inoremap kj <esc>
-inoremap <esc> <nop>
+" inoremap <esc> <nop>
 inoremap <leader>w <esc>:nohlsearch<Bar>echo<cr>:w<cr>
+inoremap ()) (<esc>Ea)
 " inoremap <F5> <Plug>TexFastEnvironmentInsert
-imap [15~ <F5>
 
 
 "}}}
@@ -253,7 +268,6 @@ augroup vimrc
     autocmd FileType vim setlocal foldmethod=marker
     autocmd BufWinEnter .vimrc setlocal foldmethod=marker
     autocmd FileType vim nnoremap <buffer> <leader>c I" <esc>
-    autocmd FileType vim nnoremap <buffer> <leader>p oechom ''<esc>i 
 augroup END
 " }}}
 
@@ -271,6 +285,7 @@ augroup END
 " * / # - go to next/prev occurence of word under cursor
 " n / N - go to next/prev occurence of word under cursor -> better!
 " c-o c-o : go back to prev location
+" `` - go to last position
 " }}}
 
 " Colors {{{
